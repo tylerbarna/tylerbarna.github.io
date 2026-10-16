@@ -1,0 +1,3 @@
+# Force LF line endings, needed for Docker and shell scripts
+*.sh text eol=lf
+bin/* text eol=lf

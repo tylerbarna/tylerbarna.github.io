@@ -8,7 +8,7 @@ profile:
   align: right
   image: prof_pic.jpg
   image_circular: false # crops the image to make it circular
-  address: >
+  more_info: >
     <p>John T. Tate Hall 201-06</p>
     <p><a href="https://goo.gl/maps/ofDqMg7ey6cfp4oe6">116 Church St SE</a></p>
     <p><a href="https://goo.gl/maps/ofDqMg7ey6cfp4oe6">Minneapolis, MN 55455</a></p>
@@ -16,6 +16,14 @@ profile:
 news: true  # includes a list of news items
 selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
+
+announcements:
+  enabled: true # includes a list of news items
+  scrollable: true # adds a vertical scroll bar if there are more than 3 news items
+  limit: 5 # leave blank to include all the news in the `_news` folder
+
+latest_posts:
+  enabled: false
 ---
 
 ## About me
@@ -24,4 +32,4 @@ As an undergraduate, I developed a strong interest in observational astronomy. A
 Since starting at UMN, I've worked with Professor Michael Coughlin to develop a pipeline to automate ZTF follow-up observations of potential companions to gravitational wave sources detected by LIGO. 
 
 ### Personal Life
-I spent the bulk of my childhood in a New Jersey suburb near Philadelphia and aspired to study astronomy from an early age; after graduating high school, I began my undergraduate degree at Rutgers University-New Brunswick, where I was a member of the Honors College. Moving to Minnesota has been the first time I’ve lived outside of New Jersey, and I’ve enjoyed discovering more about the Twin Cities in the time I’ve been here. In my spare time, I enjoy cooking, collecting records, watching films, playing the guitar, and reading.  
+I spent the bulk of my childhood in a New Jersey suburb near Philadelphia and aspired to study astronomy from an early age; after graduating high school, I began my undergraduate degree at Rutgers University-New Brunswick, where I was a member of the Honors College. Moving to Minnesota has been the first time I’ve lived outside of New Jersey, and I’ve enjoyed discovering more about the Twin Cities in the time I’ve been here. In my spare time, I enjoy cooking, collecting records, watching films, playing the guitar, and reading.
