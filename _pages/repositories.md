@@ -18,15 +18,21 @@ nav_order: 3
       <p class="mb-2 text-muted" style="font-size: 0.92rem;">
         {{ site.data.repositories.profile.summary }}
       </p>
-      <div class="d-flex flex-wrap gap-2 pt-1">
+      <div class="d-flex flex-wrap align-items-center gap-2 pt-1">
+        <span class="badge" style="background-color: rgba(234, 179, 8, 0.12); color: #b45309; border: 1px solid rgba(234, 179, 8, 0.35); font-weight: 600;">
+          <i class="fa-solid fa-star me-1" style="color: #eab308;"></i> {{ site.data.repositories.profile.combined_stars }} Combined Stars (NASA GCN, NMMA & SkyPortal)
+        </span>
+        <span class="badge" style="background-color: rgba(142, 68, 173, 0.12); color: #8e44ad; border: 1px solid rgba(142, 68, 173, 0.35); font-weight: 600;">
+          <i class="fa-solid fa-code-pull-request me-1"></i> {{ site.data.repositories.profile.merged_prs }} Merged PRs
+        </span>
         <span class="badge" style="background-color: rgba(39, 174, 96, 0.12); color: #27ae60; border: 1px solid rgba(39, 174, 96, 0.35); font-weight: 600;">
           <i class="fa-solid fa-code-commit me-1"></i> {{ site.data.repositories.profile.contributions }} Annual Contributions
         </span>
+        <a href="https://pypi.org/project/nmma/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; text-decoration: none;" title="nmma on PyPI">
+          <img src="https://img.shields.io/pypi/dm/nmma?style=flat&color=3498db&label=nmma%20PyPI" alt="nmma PyPI downloads" style="height: 22px; border-radius: 4px;" loading="lazy">
+        </a>
         <span class="badge" style="background-color: rgba(41, 128, 185, 0.12); color: #2980b9; border: 1px solid rgba(41, 128, 185, 0.35); font-weight: 600;">
           <i class="fa-solid fa-satellite-dish me-1"></i> NASA GCN Core Developer
-        </span>
-        <span class="badge" style="background-color: rgba(142, 68, 173, 0.12); color: #8e44ad; border: 1px solid rgba(142, 68, 173, 0.35); font-weight: 600;">
-          <i class="fa-solid fa-bolt me-1"></i> Multi-Messenger Astrophysics
         </span>
       </div>
     </div>
@@ -84,14 +90,18 @@ nav_order: 3
       <div class="pt-2 border-top" style="border-color: var(--global-divider-color) !important;">
         <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
           
-          <!-- Live GitHub badges -->
-          <div class="d-flex align-items-center gap-1">
-            <a href="{{ project.url }}/stargazers" target="_blank" rel="noopener noreferrer">
-              <img src="https://img.shields.io/github/stars/{{ project.repo }}?style=flat&logo=github&color=333333&labelColor=1a1a1a" alt="Stars" style="height: 20px; border-radius: 4px;" loading="lazy">
+          <!-- Live GitHub badges (only shown when count > 0) -->
+          <div class="d-flex align-items-center gap-1 flex-wrap">
+            {% if project.stars and project.stars > 0 %}
+            <a href="{{ project.url }}/stargazers" target="_blank" rel="noopener noreferrer" title="{{ project.stars }} stars on GitHub">
+              <img src="https://img.shields.io/github/stars/{{ project.repo }}?style=flat&logo=github&color=333333&labelColor=1a1a1a" alt="Stars" style="height: 20px; border-radius: 4px;" loading="lazy" onerror="this.parentElement.style.display='none';">
             </a>
-            <a href="{{ project.url }}/network/members" target="_blank" rel="noopener noreferrer">
-              <img src="https://img.shields.io/github/forks/{{ project.repo }}?style=flat&color=444444&labelColor=1a1a1a" alt="Forks" style="height: 20px; border-radius: 4px;" loading="lazy">
+            {% endif %}
+            {% if project.forks and project.forks > 0 %}
+            <a href="{{ project.url }}/network/members" target="_blank" rel="noopener noreferrer" title="{{ project.forks }} forks on GitHub">
+              <img src="https://img.shields.io/github/forks/{{ project.repo }}?style=flat&color=444444&labelColor=1a1a1a" alt="Forks" style="height: 20px; border-radius: 4px;" loading="lazy" onerror="this.parentElement.style.display='none';">
             </a>
+            {% endif %}
           </div>
 
           <!-- Direct links -->
