@@ -1,39 +1,39 @@
-"Coughlin":
+"coughlin":
   - firstname: ["Michael W.", "Michael", "M. W."]
     url: https://cse.umn.edu/physics/michael-coughlin
 
-"Dietrich":
+"dietrich":
   - firstname: ["Tim", "T."]
     url: https://www.uni-potsdam.de/en/astroparticle/people/tim-dietrich
 
-"Fremling":
+"fremling":
   - firstname: ["Christoffer", "C."]
     url: https://pma.caltech.edu/people/christoffer-fremling
 
-"Ahumada":
+"ahumada":
   - firstname: ["Tomás", "Tomas", "T."]
     url: https://astro.umd.edu/people/tomas-ahumada
 
-"Kasliwal":
+"kasliwal":
   - firstname: ["Mansi M.", "Mansi", "M. M."]
     url: https://www.astro.caltech.edu/people/mansi-kasliwal
 
-"Andreoni":
+"andreoni":
   - firstname: ["Igor", "I."]
     url: https://www.igorthesky.org/
 
-"Pang":
+"pang":
   - firstname: ["Peter T. H.", "Peter T.~H.", "Peter", "P. T. H."]
     url: https://www.uu.nl/staff/PTHPang
 
-"Bulla":
+"bulla":
   - firstname: ["Mattia", "M."]
     url: https://www.mattiabulla.com/
 
-"Reed":
+"reed":
   - firstname: ["Brandon", "B."]
     url: https://cse.umn.edu/physics/brandon-reed
 
-"Soares-Furtado":
+"soares-furtado":
   - firstname: ["Melinda", "M."]
     url: https://www.astro.wisc.edu/our-people/postdoctoral-researchers/melinda-soares-furtado/

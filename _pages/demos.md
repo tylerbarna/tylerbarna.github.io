@@ -3,8 +3,7 @@ layout: page
 title: demos
 permalink: /demos/
 description: Interactive showcase of modern al-folio features tailored for astrophysics and multi-messenger research.
-nav: true
-nav_order: 5
+nav: false
 mermaid:
   enabled: true
 chart:

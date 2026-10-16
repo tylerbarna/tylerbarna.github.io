@@ -1,4 +1,4 @@
-name: Sync ORCID Publications
+name: Sync Publications (ADS / SciX, ORCID, arXiv)
 
 on:
   schedule:
@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 jobs:
-  sync-orcid:
+  sync-publications:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,9 +21,12 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Run ORCID sync script
+      - name: Run Publication sync script
+        env:
+          ADS_DEV_KEY: ${{ secrets.ADS_DEV_KEY }}
+          ORCID_ID: "0000-0002-4843-345X"
         run: |
-          python bin/sync_orcid.py
+          python bin/sync_publications.py
 
       - name: Configure Git
         run: |
@@ -34,6 +37,6 @@ jobs:
         run: |
           git add _bibliography/papers.bib
           git diff --staged --quiet || (
-            git commit -m "chore: sync publications from ORCID"
+            git commit -m "chore: sync publications from ADS, ORCID, and arXiv"
             git push
           )
