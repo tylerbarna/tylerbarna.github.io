@@ -326,3 +326,11 @@
   color: #00b894 !important;
   border-color: rgba(0, 184, 148, 0.32) !important;
 }
+
+/* 7. Repositories & Software Cards Hover */
+.row-cols-md-2 .card:hover {
+  transform: translateY(-2.5px) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+  border-color: color-mix(in srgb, var(--global-theme-color) 40%, var(--global-divider-color)) !important;
+}
+

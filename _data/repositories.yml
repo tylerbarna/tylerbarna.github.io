@@ -1,11 +1,63 @@
-github_users:
-  - tylerbarna
+profile:
+  username: tylerbarna
+  url: https://github.com/tylerbarna
+  contributions: "380+"
+  summary: "Active contributor to open-source astrophysics pipelines, real-time alert brokers, and multi-messenger parameter estimation libraries."
 
-github_repos:
-  - nasa-gcn/gcn.nasa.gov
-  - nuclear-multimessenger-astronomy/nmma
-  - tylerbarna/nmma_fitter
-  - skyportal/skyportal
-  - mcoughlin/ztf_summer_school_2022
-  - tylerbarna/BarnaSeniorHonorsThesis
-  - tylerbarna/tylerbarna.github.io
+projects:
+  - name: "NASA GCN (General Coordinates Network)"
+    repo: "nasa-gcn/gcn.nasa.gov"
+    url: "https://github.com/nasa-gcn/gcn.nasa.gov"
+    website: "https://gcn.nasa.gov"
+    description: "NASA's modern alert distribution and circulars system for time-domain and multi-messenger astronomy. Coordinates real-time follow-up of GRBs, gravitational waves, and high-energy transients across global observatories."
+    role: "Contributor (Search & Alert Processing)"
+    language: "TypeScript"
+    language_color: "#3178c6"
+    tags: ["Time-Domain", "Alert System", "NASA", "Next.js"]
+
+  - name: "NMMA (Nuclear Multi-Messenger Astronomy)"
+    repo: "nuclear-multimessenger-astronomy/nmma"
+    url: "https://github.com/nuclear-multimessenger-astronomy/nmma"
+    description: "A comprehensive pythonic framework for joint Bayesian parameter estimation and light curve modeling of binary neutron star mergers, kilonovae, and core-collapse supernovae."
+    role: "Core Developer (Online Framework & Real-Time Fitting)"
+    language: "Python"
+    language_color: "#3572A5"
+    paper_url: "https://academic.oup.com/mnras/article/531/1/1084/7671758"
+    tags: ["Bayesian Inference", "Kilonovae", "ZTF", "Gravitational Waves"]
+
+  - name: "IIb or not IIb: Kilonova Imposters"
+    repo: "tylerbarna/IIb-or-not-IIb"
+    url: "https://github.com/tylerbarna/IIb-or-not-IIb"
+    description: "Light curve feature extraction pipeline, photometric classifiers, and analysis notebooks for identifying core-collapse supernova imposters in rapid gravitational-wave follow-up campaigns."
+    role: "Author & Lead Developer"
+    language: "Jupyter Notebook"
+    language_color: "#DA5B0B"
+    paper_url: "https://iopscience.iop.org/journal/1538-3873"
+    tags: ["Supernovae", "Machine Learning", "ZTF"]
+
+  - name: "GCN Regex Pipeline"
+    repo: "tylerbarna/gcn-regex"
+    url: "https://github.com/tylerbarna/gcn-regex"
+    description: "High-performance regular expression parsing and text extraction engine designed to transform unstructured GCN Circulars into standardized observational coordinates, instruments, and photometry."
+    role: "Author & Maintainer"
+    language: "Python"
+    language_color: "#3572A5"
+    tags: ["NLP", "Regex", "Alert Mining"]
+
+  - name: "Kilonova Rates & Simulation"
+    repo: "tylerbarna/kn-rates"
+    url: "https://github.com/tylerbarna/kn-rates"
+    description: "Simulation tools and volumetric rate estimation code for assessing electromagnetic counterpart detectability with wide-field survey telescopes such as ZTF and Rubin LSST."
+    role: "Author & Maintainer"
+    language: "Python"
+    language_color: "#3572A5"
+    tags: ["Cosmology", "Rates", "Simulations"]
+
+  - name: "SkyPortal"
+    repo: "skyportal/skyportal"
+    url: "https://github.com/skyportal/skyportal"
+    description: "An open-source, collaborative astronomical data platform for time-domain alert brokers, observational scheduling, and spectroscopic classification follow-up."
+    role: "Open Source Contributor"
+    language: "Python"
+    language_color: "#3572A5"
+    tags: ["Astronomy", "Alert Broker", "Web Platform"]
