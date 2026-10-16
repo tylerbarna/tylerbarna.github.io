@@ -26,18 +26,26 @@ cv:
     Education:
       - institution: University of Minnesota-Twin Cities
         location: Minneapolis, MN
-        area: Astrophysics
+        area: Astrophysics (Data Science in Astrophysics Minor)
         studyType: Ph.D.
         start_date: 2021
         end_date: 2027
         highlights:
           - "Advised by Assistant Professor Michael Coughlin"
-          - "Member of the Data Science in Multi Messenger Astronomy (DSMMA) Program (Minor in Data Science in Astrophysics)"
+          - "Member of the Data Science in Multi-Messenger Astronomy (DSMMA) Program"
 
-      - institution: Rutgers, The State University of New Jersey-New Brunswick
+      - institution: University of Minnesota-Twin Cities
+        location: Minneapolis, MN
+        area: Astrophysics (Data Science in Astrophysics Minor)
+        studyType: M.S.
+        date: 2024
+        highlights:
+          - "Member of the Data Science in Multi-Messenger Astronomy (DSMMA) Program"
+
+      - institution: Rutgers University, New Brunswick - Honors College
         location: New Brunswick, NJ
         area: Astrophysics
-        studyType: Bachelor of Science
+        studyType: B.S.
         start_date: 2017
         end_date: 2021
         highlights:
@@ -46,26 +54,35 @@ cv:
           - "Received High Honors on Senior Thesis (Advisor: Prof. Saurabh Jha)"
 
     Research Experience:
+      - company: Goddard Space Flight Center
+        position: Graduate Research Assistant
+        location: Greenbelt, MD
+        start_date: 2023
+        end_date: present
+        summary: "Project: GCN: General Coordinates Network"
+        highlights:
+          - "Contributing to development of the search functionality for the GCN Circulars Archive, including the addition of the use of natural language processing to improve search quality and extract information from the historic archive."
+          - "Work with GCN will continue through at least 2026."
+
       - company: Department of Physics and Astronomy, University of Minnesota-Twin Cities
         position: Graduate Research Assistant
         location: Minneapolis, MN
         start_date: 2021
         end_date: present
+        summary: "Advisor: Assistant Professor Michael Coughlin<br>Project: NMMA: A Nuclear-Physics and Multi-Messenger Astrophysics Framework"
         highlights:
-          - "Advised by Assistant Professor Michael Coughlin"
-          - "Working with large international collaboration (NMMA) to study kilonovae via gravitational wave detection and electromagnetic observation."
-          - "Lead development on an automated online pipeline to perform rapid fitting of light curves from ZTF to identify potential gravitational wave companions."
+          - "Working with large collaboration to study kilonovae via gravitational wave detection and electromagnetic observation."
+          - "Leading development of pipeline to automate analysis of ZTF data to inform follow-up observations of potential gravitational wave companions."
           - "First-authored publication: 'An online framework for fitting fast transient light curves' (MNRAS 2024)."
-          - "Winner of the UMN Departmental 3 Minute Thesis Competition in 2022."
 
       - company: Department of Physics and Astronomy, Rutgers University
-        position: Undergraduate Research Assistant
+        position: Senior Honors Thesis
         location: New Brunswick, NJ
         start_date: 2020
         end_date: 2021
+        summary: "Advisor: Professor Saurabh Jha<br>Project: Early-Time Observations of Type Ia Supernovae with TESS"
         highlights:
-          - "Advised by Professor Saurabh Jha (Senior Honors Thesis)"
-          - "Conducted independent research on SNe Ia observed by the Transiting Exoplanet Survey Satellite (TESS) at early rise times."
+          - "Conducted independent research on SNe Ia observed by the Transiting Exoplanet Survey Satellite at early rise times - Project received 'High Honors'."
           - "Engaged in monthly remote observation shifts on the Keck II Telescope."
 
       - company: Department of Astrophysical Sciences, Princeton University
@@ -73,55 +90,135 @@ cv:
         location: Princeton, NJ
         start_date: 2018
         end_date: 2020
+        summary: "Advisor: Dr. Melinda Soares-Furtado"
         highlights:
-          - "Advised by Dr. Melinda Soares-Furtado"
-          - "Conducted research on hydrodynamic simulations of globular clusters and analyzed Kepler Space Telescope K2 data."
+          - "Worked both locally and remotely on several research projects, including hydrodynamic simulations of globular clusters and analysis of data from the Kepler Space Telescope's K2 Mission."
+          - "Used time-management skills and conducted independent research on novel topics to independently accomplish project goals in a timely manner."
           - "Contributed to published catalog in The Astrophysical Journal Supplement Series (2020) and poster presentation at NASA Kepler/K2 SciCon V."
 
       - company: New Jersey Governor's School of the Sciences, Drew University
         position: Governor's School Scholar
         location: Madison, NJ
-        start_date: 2016
-        end_date: 2016
+        date: 2016
+        summary: "Advisor: Dr. David Cincotta<br>Project: Controlled Release Kinetics"
         highlights:
-          - "Advised by Dr. David Cincotta. Studied Controlled Release Kinetics and Hansen Solubility Parameters."
-          - "Automated collection of experimental data and presented research at the NJGSS Symposium."
+          - "Collaborated with a large group of students from across New Jersey to complete a complex research project in chemistry on a contracted time scale."
+          - "Helped to automate the collection of data and designed an experimental procedure that greatly increased the number of trials that could be run within the given time constraints."
 
     Honors and Awards:
-      - title: Winner of UMN Departmental 3 Minute Thesis Competition
-        date: 2022
+      - title: Robert O. Pepin Fellow
+        date: 2026
         awarder: University of Minnesota
-      - title: Data Science in Multi Messenger Astronomy Research Fellowship
+        summary: "Summer 2026"
+
+      - title: Visiting Scholar at Italian National Institute for Astrophysics (INAF)
+        date: 2026
+        awarder: Italian National Institute for Astrophysics
+        summary: "Spring 2026"
+
+      - title: Data Science in Multi-Messenger Astrophysics Research Fellowship
+        date: 2025
+        awarder: NSF / University of Minnesota
+        summary: "Spring 2025"
+
+      - title: Winner of UMN Departmental 3 Minute Thesis Competition
+        date: 2023
+        awarder: University of Minnesota
+        summary: "Departmental Winner (2022, 2023)"
+
+      - title: Data Science in Multi-Messenger Astrophysics Research Fellowship
         date: 2022-2023
         awarder: NSF / University of Minnesota
-      - title: Awarded Ney Fellowship
+
+      - title: Ney Fellowship
         date: 2022
         awarder: University of Minnesota
+
       - title: Rutgers University Trustee Scholarship
         date: 2017-2021
         awarder: Rutgers University
+
       - title: Hoffman DiMuzio Community Scholarship
         date: 2017
         awarder: Hoffman DiMuzio
+
       - title: Brett Fenster Memorial Scholarship
         date: 2017
         awarder: Brett Fenster Memorial Fund
 
     Conferences:
-      - title: ZTF Summer School 2022
-        location: Minneapolis, MN
-        date: 2022
-        summary: Coordination Assistant for NMMA Topics
+      - title: ID4 AI for Engineering Workshop
+        date: 2026
+
+      - title: 247th Meeting of the American Astronomical Society
+        date: 2026
+        summary: "Recent and Planned Development of The General Coordinates Network (Poster)"
+
+      - title: "AstroRob VIII: Workshop on Autonomous Robotic Observatories"
+        date: 2025
+        summary: "The General Coordinates Network: NASA’s Next Generation Time-Domain and Multi-Messenger Alert System (Talk)"
+
+      - title: 245th Meeting of the American Astronomical Society
+        date: 2025
+        summary: "IIb or not IIb: Identifying Kilonova Imposters (Poster)"
+
+      - title: Hotwiring the Transient Universe VII
+        date: 2024
+        summary: "Optimization of Kilonova Follow-up with a Multi-Armed Bandit Strategy (Talk)"
+
+      - title: Numanji/NMMA Collaboration Retreat
+        date: 2024
+
+      - title: 243rd Meeting of the American Astronomical Society
+        date: 2024
+        summary: "Development of the General Coordinates Network Circulars Search Functionality (Poster)"
+
+      - title: ZTF Summer School
+        date: 2022-2025
+        summary: "Coordination Assistant for NMMA (Talk)"
+
       - title: NASA Kepler and K2 SciCon V
-        location: Glendale, CA
         date: 2019
-        summary: "Poster Presentation: 'Searching for Exoplanets in Dense Clusters with Image Subtraction'"
+        location: Glendale, CA
+        summary: "Searching for Exoplanets in Dense Clusters with Image Subtraction (Poster)"
 
     Technical Skills:
-      - name: Programming Languages
-        keywords: "Python, C++, SQL, Bash, Git, LaTeX, HTML, CSS, JavaScript"
-      - name: Tools & Frameworks
-        keywords: "PyTorch, astropy, lightkurve, SkyPortal, NMMA, Slurm, Linux, Mathematica"
+      - name: Languages and Frameworks
+        keywords:
+          - Python
+          - Java
+          - JavaScript
+          - LaTeX
+          - React
+          - Remix
+
+      - name: Applications
+        keywords:
+          - Anaconda
+          - Mathematica
+          - Git
+          - Windows Subsystem for Linux (WSL)
+          - Slurm
+          - WinSCP
+          - PuTTY
+          - Adobe Creative Suite
+          - Microsoft Office
+
+      - name: Operating Systems
+        keywords:
+          - Unix
+          - Linux
+          - Windows
+          - Android
+
+    Professional Affiliations:
+      - name: Accelerated AI Algorithms for Data-Driven Discovery (A3D3)
+        role: Graduate Student Trainee
+        date: 2022-present
+
+      - name: American Astronomical Society (AAS)
+        role: Student Member
+        date: 2018-present
 
     Work Experience:
       - company: South Jersey Soccer League & South Jersey Girls Soccer League
@@ -130,37 +227,69 @@ cv:
         start_date: 2015
         end_date: 2021
         highlights:
-          - "Officiated competitive soccer matches across adolescent to collegiate levels."
+          - "Utilized thorough knowledge of the laws of the game to quickly and decisively make calls with consistency and in a manner appropriate for the level of play."
+          - "Worked with other referees to make quick decisions in games ranging from adolescent to collegiate levels."
+
       - company: Del Val Pool Maintenance
         position: Red Cross Certified Lifeguard
         location: New Jersey
         start_date: 2016
         end_date: 2019
         highlights:
-          - "Managed pool safety and water chemistry across community swimming facilities."
+          - "Measured and recorded chemical levels on an hourly basis, making adjustments to satisfy safety standards."
+          - "Maintained pool site and supervised swimmers."
+
+      - company: Self-Employed
+        position: Personal Tutor
+        start_date: 2015
+        end_date: 2017
+        highlights:
+          - "Provided tutoring to students between K-8 in various topics, particularly STEM."
 
     Outreach:
       - title: MIfA Public Observing Nights
+        organization: Minnesota Institute for Astrophysics
         date: 2022-present
-        awarder: Minnesota Institute for Astrophysics
+
       - title: Astronomy on Tap - Twin Cities
-        date: 2022-present
-        awarder: AoT Twin Cities
+        organization: AoT Twin Cities
+        date: 2022-2023
+
       - title: Coughlin Group Elementary School Outreach
+        organization: University of Minnesota
+        date: 2022-2023
+
+      - title: ZTF Summer School Program
+        organization: Zwicky Transient Facility
         date: 2022-present
-        awarder: University of Minnesota
+
       - title: MIfA Universe@Home Program
+        organization: Minnesota Institute for Astrophysics
         date: 2021-2022
-        awarder: Minnesota Institute for Astrophysics
+
       - title: Rutgers Astronomical Society
-        date: 2017-2021
-        awarder: Rutgers University
+        organization: Rutgers University
+        date: 2018-2021
+
       - title: Rutgers Honors College Mentoring Program
+        organization: Rutgers University
         date: 2017-2018
-        awarder: Rutgers University
 
     Interests:
       - name: Academic
-        keywords: "Time-Domain Astronomy, Multi-Messenger Astrophysics, Gravitational Waves, Kilonovae, Supernovae, Machine Learning in Astronomy"
-      - name: Personal
-        keywords: "Computers & Technology, Cooking, Guitar & Lutherie, Record Collecting, Film, Literature"
+        keywords:
+          - Time-Domain Astronomy
+          - Multi-Messenger Astrophysics
+          - Gravitational Waves
+          - Kilonovae
+          - Supernovae
+          - Machine Learning in Astronomy
+
+      - name: Personal & Hobbies
+        keywords:
+          - Computer Building
+          - Cooking
+          - Guitar & Lutherie
+          - Record Collecting
+          - Film
+          - Literature

@@ -26,6 +26,8 @@ jobs:
         run: |
           pip install -r requirements.txt
       - name: RenderCV
+        id: rendercv
+        continue-on-error: true
         run: |
           cv_file=$(find _data  -maxdepth 1 -type f \( -name "cv.yaml" -o -name "cv.yml" \))
           if [ -z "$cv_file" ]; then
@@ -45,11 +47,13 @@ jobs:
           rendercv render $cv_file --settings $settings
           rm assets/rendercv/rendercv_output/*.typ
       - name: Upload rendercv_output as an artifact
+        if: steps.rendercv.outcome == 'success'
         uses: actions/upload-artifact@v7
         with:
           name: RenderCV Output
           path: assets/rendercv/rendercv_output
       - name: Push the changes
+        if: steps.rendercv.outcome == 'success'
         run: |
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"

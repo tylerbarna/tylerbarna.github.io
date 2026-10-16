@@ -1,0 +1,100 @@
+{% comment %}
+  Unified CV entry component
+  Renders a single entry across any section with:
+  - Left column (115px fixed): Date badge & optional location pin
+  - Right column: Title, subtitle, detail/summary, highlights
+{% endcomment %}
+
+{% capture start_date %}
+  {% if entry.start_date %}{{ entry.start_date }}{% elsif entry.startDate %}{{ entry.startDate }}{% endif %}
+{% endcapture %}
+{% assign start_date = start_date | strip %}
+
+{% capture end_date %}
+  {% if entry.end_date %}{{ entry.end_date }}{% elsif entry.endDate %}{{ entry.endDate }}{% endif %}
+{% endcapture %}
+{% assign end_date = end_date | strip %}
+
+{% capture point_date %}
+  {% if entry.date %}{{ entry.date }}{% elsif entry.releaseDate %}{{ entry.releaseDate }}{% endif %}
+{% endcapture %}
+{% assign point_date = point_date | strip %}
+
+{% if start_date != '' %}
+  {% if end_date != '' %}
+    {% if end_date == 'present' or end_date == 'Present' or end_date == 'PRESENT' %}
+      {% assign date_badge = start_date | append: ' – Present' %}
+    {% elsif start_date == end_date %}
+      {% assign date_badge = start_date %}
+    {% else %}
+      {% assign date_badge = start_date | append: ' – ' | append: end_date %}
+    {% endif %}
+  {% else %}
+    {% assign date_badge = start_date | append: ' – Present' %}
+  {% endif %}
+{% elsif point_date != '' %}
+  {% if point_date contains 'present' or point_date contains 'Present' or point_date contains 'PRESENT' %}
+    {% assign p_start = point_date | split: '-' | first | split: '–' | first | strip %}
+    {% assign date_badge = p_start | append: ' – Present' %}
+  {% elsif point_date contains '-' %}
+    {% assign p_parts = point_date | split: '-' %}
+    {% assign p_start = p_parts[0] | strip %}
+    {% assign p_end = p_parts[1] | strip %}
+    {% assign date_badge = p_start | append: ' – ' | append: p_end %}
+  {% elsif point_date contains '–' %}
+    {% assign p_parts = point_date | split: '–' %}
+    {% assign p_start = p_parts[0] | strip %}
+    {% assign p_end = p_parts[1] | strip %}
+    {% assign date_badge = p_start | append: ' – ' | append: p_end %}
+  {% else %}
+    {% assign date_badge = point_date %}
+  {% endif %}
+{% else %}
+  {% assign date_badge = null %}
+{% endif %}
+
+<div class="cv-entry-row d-flex flex-row align-items-start">
+  <div class="cv-date-col text-center">
+    {% if date_badge %}
+      <span class="badge font-weight-bold danger-color-dark cv-badge">{{ date_badge }}</span>
+    {% endif %}
+    {% if entry.location %}
+      <div class="cv-location">
+        <i class="fa-solid fa-location-dot iconlocation"></i>
+        <span>{{ entry.location }}</span>
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="cv-content-col flex-grow-1">
+    {% assign title_text = entry.title | default: entry.position | default: entry.studyType | default: entry.name %}
+    {% if entry.url %}
+      <h6 class="cv-entry-title font-weight-bold">
+        <a href="{{ entry.url }}" target="_blank" rel="noopener noreferrer">{{ title_text }}</a>
+      </h6>
+    {% elsif title_text %}
+      <h6 class="cv-entry-title font-weight-bold">{{ title_text }}</h6>
+    {% endif %}
+
+    {% assign subtitle_text = entry.institution | default: entry.company | default: entry.organization | default: entry.awarder | default: entry.role %}
+    {% if subtitle_text and subtitle_text != title_text %}
+      <h6 class="cv-entry-subtitle font-weight-medium">{{ subtitle_text }}</h6>
+    {% endif %}
+
+    {% assign detail_text = entry.area | default: entry.summary | default: entry.details %}
+    {% if detail_text %}
+      <h6 class="cv-entry-detail font-italic">{{ detail_text | markdownify | remove: '<p>' | remove: '</p>' }}</h6>
+    {% endif %}
+
+    {% if entry.courses or entry.highlights %}
+      <ul class="cv-entry-items">
+        {% for item in entry.courses %}
+          <li><span class="item">{{ item }}</span></li>
+        {% endfor %}
+        {% for item in entry.highlights %}
+          <li><span class="item">{{ item | markdownify | remove: '<p>' | remove: '</p>' }}</span></li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+</div>
