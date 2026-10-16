@@ -1,0 +1,11 @@
+{% comment %}
+  Unified education entry renderer
+{% endcomment %}
+
+<ul class="cv-list list-unstyled m-0 p-0">
+  {% for entry in entries %}
+    <li class="cv-item">
+      {% include cv/entry.liquid %}
+    </li>
+  {% endfor %}
+</ul>

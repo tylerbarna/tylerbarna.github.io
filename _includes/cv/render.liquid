@@ -1,0 +1,490 @@
+{% comment %}
+  Unified CV layout that handles both RenderCV (YAML) and JSONResume (JSON) formats
+  - RenderCV: site.data.cv.cv
+  - JSONResume: site.data.resume
+  Both formats use unified rendering includes for 100% consistent, generalized output
+{% endcomment %}
+
+<div class="post">
+  <header class="post-header">
+    <h1 class="post-title">
+      {{ page.title }}
+      {% if page.cv_pdf %}
+        <a
+          {% if page.cv_pdf contains '://' %}
+            href="{{ page.cv_pdf }}"
+          {% else %}
+            href="{{ page.cv_pdf | relative_url }}"
+          {% endif %}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="float-right"
+        >
+          <i class="fa-solid fa-file-pdf"></i>
+        </a>
+      {% endif %}
+    </h1>
+    {% if page.description %}
+      <p class="post-description">{{ page.description }}</p>
+    {% endif %}
+  </header>
+
+  <article>
+    <div class="cv">
+      {% comment %} Determine which CV format to render {% endcomment %}
+      {% assign render_rendercv = false %}
+      {% assign render_jsonresume = false %}
+
+      {% if page.cv_format == 'rendercv' %}
+        {% assign render_rendercv = true %}
+      {% elsif page.cv_format == 'jsonresume' %}
+        {% assign render_jsonresume = true %}
+      {% else %}
+        {% if site.data.cv and site.data.cv.cv %}
+          {% assign render_rendercv = true %}
+        {% elsif site.data.resume %}
+          {% assign render_jsonresume = true %}
+        {% endif %}
+      {% endif %}
+
+      {% if render_rendercv and site.data.cv and site.data.cv.cv %}
+        {% assign cv = site.data.cv.cv %}
+
+        <!-- Header/Contact Information -->
+        {% if cv.name or cv.label or cv.location or cv.email or cv.phone or cv.website %}
+          <div class="card mt-3 p-3">
+            <h3 class="card-title font-weight-medium">Contact Information</h3>
+            <table class="table table-cv table-sm table-borderless">
+              {% if cv.name %}
+                <tr>
+                  <td class="p-1 pr-2 font-weight-bold"><b>Name</b></td>
+                  <td class="p-1 pl-2 font-weight-light">{{ cv.name }}</td>
+                </tr>
+              {% endif %}
+              {% if cv.label %}
+                <tr>
+                  <td class="p-1 pr-2 font-weight-bold"><b>Professional Title</b></td>
+                  <td class="p-1 pl-2 font-weight-light">{{ cv.label }}</td>
+                </tr>
+              {% endif %}
+              {% if cv.email %}
+                <tr>
+                  <td class="p-1 pr-2 font-weight-bold"><b>Email</b></td>
+                  <td class="p-1 pl-2 font-weight-light">{{ cv.email }}</td>
+                </tr>
+              {% endif %}
+              {% if cv.phone %}
+                <tr>
+                  <td class="p-1 pr-2 font-weight-bold"><b>Phone</b></td>
+                  <td class="p-1 pl-2 font-weight-light">{{ cv.phone }}</td>
+                </tr>
+              {% endif %}
+              {% if cv.address %}
+                <tr>
+                  <td class="p-1 pr-2 font-weight-bold"><b>Location</b></td>
+                  <td class="p-1 pl-2 font-weight-light">
+                    {% if cv.address.street %}{{ cv.address.street }}, {% endif %}
+                    {% if cv.address.city %}{{ cv.address.city }}, {% endif %}
+                    {% if cv.address.region %}{{ cv.address.region }} {% endif %}
+                    {% if cv.address.postalCode %}{{ cv.address.postalCode }}{% endif %}
+                  </td>
+                </tr>
+              {% endif %}
+              {% if cv.website %}
+                <tr>
+                  <td class="p-1 pr-2 font-weight-bold"><b>Website</b></td>
+                  <td class="p-1 pl-2 font-weight-light">
+                    <a href="{{ cv.website }}" target="_blank" rel="noopener noreferrer">{{ cv.website }}</a>
+                  </td>
+                </tr>
+              {% endif %}
+            </table>
+          </div>
+        {% endif %}
+
+        <!-- Professional Summary -->
+        {% if cv.summary %}
+          <div class="card mt-3 p-3">
+            <h3 class="card-title font-weight-medium">Professional Summary</h3>
+            <p>{{ cv.summary | markdownify | remove: '<p>' | remove: '</p>' }}</p>
+          </div>
+        {% endif %}
+
+        <!-- All CV Sections Rendered Generically -->
+        {% for section_pair in cv.sections %}
+          {% assign section_title = section_pair[0] %}
+          {% assign section_entries = section_pair[1] %}
+
+          <a class="anchor" id="{{ section_title | slugify }}"></a>
+          <div class="card mt-3 p-3">
+            <h3 class="card-title font-weight-medium">{{ section_title }}</h3>
+            <div>
+              {% if section_title == 'Skills' or section_title == 'Technical Skills' or section_title == 'Computer Skills' %}
+                {% assign entries = section_entries %}
+                {% include cv/skills.liquid %}
+              {% elsif section_title == 'Interests' or section_title == 'Academic Interests' or section_title == 'Interests & Hobbies' or section_title == 'Interests and Hobbies' %}
+                {% assign entries = section_entries %}
+                {% include cv/interests.liquid %}
+              {% elsif section_title == 'Publications' or section_title == 'Selected Publications' %}
+                {% assign entries = section_entries %}
+                {% include cv/publications.liquid %}
+              {% else %}
+                <ul class="cv-list list-unstyled m-0 p-0">
+                  {% for entry in section_entries %}
+                    <li class="cv-item">
+                      {% include cv/entry.liquid %}
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+
+      {% elsif render_jsonresume and site.data.resume %}
+        {% comment %} JSONResume format {% endcomment %}
+
+        <!-- Contact Information -->
+        {% if site.data.resume.basics %}
+          <div class="card mt-3 p-3">
+            <h3 class="card-title font-weight-medium">Contact Information</h3>
+            {% assign basics = site.data.resume.basics %}
+            <table class="table table-cv table-sm table-borderless">
+              {% if basics.name %}
+                <tr>
+                  <td class="p-1 pr-2 font-weight-bold"><b>Name</b></td>
+                  <td class="p-1 pl-2 font-weight-light">{{ basics.name }}</td>
+                </tr>
+              {% endif %}
+              {% if basics.label %}
+                <tr>
+                  <td class="p-1 pr-2 font-weight-bold"><b>Professional Title</b></td>
+                  <td class="p-1 pl-2 font-weight-light">{{ basics.label }}</td>
+                </tr>
+              {% endif %}
+              {% if basics.email %}
+                <tr>
+                  <td class="p-1 pr-2 font-weight-bold"><b>Email</b></td>
+                  <td class="p-1 pl-2 font-weight-light">{{ basics.email }}</td>
+                </tr>
+              {% endif %}
+              {% if basics.phone %}
+                <tr>
+                  <td class="p-1 pr-2 font-weight-bold"><b>Phone</b></td>
+                  <td class="p-1 pl-2 font-weight-light">{{ basics.phone }}</td>
+                </tr>
+              {% endif %}
+              {% if basics.location %}
+                <tr>
+                  <td class="p-1 pr-2 font-weight-bold"><b>Location</b></td>
+                  <td class="p-1 pl-2 font-weight-light">
+                    {% if basics.location.address %}{{ basics.location.address }}, {% endif %}
+                    {% if basics.location.city %}{{ basics.location.city }}, {% endif %}
+                    {% if basics.location.region %}{{ basics.location.region }} {% endif %}
+                    {% if basics.location.postalCode %}{{ basics.location.postalCode }}{% endif %}
+                  </td>
+                </tr>
+              {% endif %}
+              {% if basics.url %}
+                <tr>
+                  <td class="p-1 pr-2 font-weight-bold"><b>Website</b></td>
+                  <td class="p-1 pl-2 font-weight-light">
+                    <a href="{{ basics.url }}" target="_blank" rel="noopener noreferrer">{{ basics.url }}</a>
+                  </td>
+                </tr>
+              {% endif %}
+            </table>
+          </div>
+        {% endif %}
+
+        <!-- Summary -->
+        {% if site.data.resume.basics.summary %}
+          <div class="card mt-3 p-3">
+            <h3 class="card-title font-weight-medium">Professional Summary</h3>
+            <p>{{ site.data.resume.basics.summary | markdownify | remove: '<p>' | remove: '</p>' }}</p>
+          </div>
+        {% endif %}
+
+        <!-- JSONResume Sections -->
+        {% assign empty_array = '' | split: ',' %}
+        {% assign work = site.data.resume.work | default: empty_array %}
+        {% assign vol = site.data.resume.volunteer | default: empty_array %}
+        {% assign combined_experience = work | concat: vol | al_cv_sort_by_date %}
+        {% if combined_experience.size > 0 %}
+          <a class="anchor" id="experience"></a>
+          <div class="card mt-3 p-3">
+            <h3 class="card-title font-weight-medium">Experience</h3>
+            <div>
+              {% assign entries = combined_experience %}
+              {% include cv/experience.liquid %}
+            </div>
+          </div>
+        {% endif %}
+
+        <!-- Education -->
+        {% if site.data.resume.education.size > 0 %}
+          <a class="anchor" id="education"></a>
+          <div class="card mt-3 p-3">
+            <h3 class="card-title font-weight-medium">Education</h3>
+            <div>
+              {% assign entries = site.data.resume.education | al_cv_sort_by_date %}
+              {% include cv/education.liquid %}
+            </div>
+          </div>
+        {% endif %}
+
+        <!-- Awards -->
+        {% if site.data.resume.awards.size > 0 %}
+          <a class="anchor" id="awards"></a>
+          <div class="card mt-3 p-3">
+            <h3 class="card-title font-weight-medium">Awards</h3>
+            <div>
+              {% assign entries = site.data.resume.awards %}
+              {% include cv/awards.liquid %}
+            </div>
+          </div>
+        {% endif %}
+
+        <!-- Publications -->
+        {% if site.data.resume.publications.size > 0 %}
+          <a class="anchor" id="publications"></a>
+          <div class="card mt-3 p-3">
+            <h3 class="card-title font-weight-medium">Publications</h3>
+            <div>
+              {% assign entries = site.data.resume.publications %}
+              {% include cv/publications.liquid %}
+            </div>
+          </div>
+        {% endif %}
+
+        <!-- Skills -->
+        {% if site.data.resume.skills.size > 0 %}
+          <a class="anchor" id="skills"></a>
+          <div class="card mt-3 p-3">
+            <h3 class="card-title font-weight-medium">Skills</h3>
+            <div>
+              {% assign entries = site.data.resume.skills %}
+              {% include cv/skills.liquid %}
+            </div>
+          </div>
+        {% endif %}
+
+        <!-- Languages -->
+        {% if site.data.resume.languages.size > 0 %}
+          <a class="anchor" id="languages"></a>
+          <div class="card mt-3 p-3">
+            <h3 class="card-title font-weight-medium">Languages</h3>
+            <div>
+              {% assign entries = site.data.resume.languages %}
+              {% include cv/languages.liquid %}
+            </div>
+          </div>
+        {% endif %}
+
+        <!-- Interests -->
+        {% if site.data.resume.interests.size > 0 %}
+          <a class="anchor" id="interests"></a>
+          <div class="card mt-3 p-3">
+            <h3 class="card-title font-weight-medium">Interests</h3>
+            <div>
+              {% assign entries = site.data.resume.interests %}
+              {% include cv/interests.liquid %}
+            </div>
+          </div>
+        {% endif %}
+
+        <!-- Certificates -->
+        {% if site.data.resume.certificates.size > 0 %}
+          <a class="anchor" id="certificates"></a>
+          <div class="card mt-3 p-3">
+            <h3 class="card-title font-weight-medium">Certificates</h3>
+            <div>
+              {% assign entries = site.data.resume.certificates %}
+              {% include cv/certificates.liquid %}
+            </div>
+          </div>
+        {% endif %}
+
+        <!-- Projects -->
+        {% if site.data.resume.projects.size > 0 %}
+          <a class="anchor" id="projects"></a>
+          <div class="card mt-3 p-3">
+            <h3 class="card-title font-weight-medium">Projects</h3>
+            <div>
+              {% assign entries = site.data.resume.projects %}
+              {% include cv/projects.liquid %}
+            </div>
+          </div>
+        {% endif %}
+
+        <!-- References -->
+        {% if site.data.resume.references.size > 0 %}
+          <a class="anchor" id="references"></a>
+          <div class="card mt-3 p-3">
+            <h3 class="card-title font-weight-medium">References</h3>
+            <div>
+              {% assign entries = site.data.resume.references %}
+              {% include cv/references.liquid %}
+            </div>
+          </div>
+        {% endif %}
+
+      {% else %}
+        <p>No CV data found. Please configure either RenderCV (cv.yml) or JSONResume (resume.json) data.</p>
+      {% endif %}
+    </div>
+  </article>
+</div>
+
+<style>
+  /* Base reset to eliminate any stray bullet markers */
+  .cv ul,
+  .cv ul.cv-list,
+  .cv ul.list-group,
+  .cv .card ul.list-group,
+  .cv .card .list-group-item,
+  .cv li.cv-item {
+    list-style: none !important;
+    list-style-type: none !important;
+  }
+  .cv li.cv-item::marker,
+  .cv .card .list-group-item::marker {
+    display: none !important;
+    content: "" !important;
+  }
+
+  /* Unified entry list styling */
+  .cv-list {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .cv-item {
+    padding: 0.95rem 0 !important;
+    border-bottom: 1px solid var(--global-divider-color) !important;
+  }
+  .cv-item:first-child {
+    padding-top: 0.2rem !important;
+  }
+  .cv-item:last-child {
+    border-bottom: none !important;
+    padding-bottom: 0.2rem !important;
+  }
+
+  /* Generalized entry layout */
+  .cv-entry-row {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: flex-start !important;
+    width: 100% !important;
+  }
+
+  /* Fixed date column guarantees perfect vertical alignment across ALL sections */
+  .cv-date-col {
+    flex: 0 0 115px !important;
+    width: 115px !important;
+    min-width: 115px !important;
+    max-width: 115px !important;
+    margin-right: 1.5rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    padding-top: 0.15rem !important;
+  }
+  .cv-badge {
+    display: inline-block !important;
+    width: 100% !important;
+    max-width: 105px !important;
+    padding: 0.35rem 0.4rem !important;
+    font-size: 0.75rem !important;
+    line-height: 1.15 !important;
+    white-space: normal !important;
+    text-align: center !important;
+    border-radius: 4px !important;
+  }
+  .cv-location {
+    margin-top: 0.35rem !important;
+    font-size: 0.72rem !important;
+    line-height: 1.2 !important;
+    color: var(--global-text-color-light) !important;
+    text-align: center !important;
+    word-break: break-word !important;
+  }
+  .cv-location i.iconlocation {
+    margin-right: 0.2rem !important;
+  }
+
+  /* Content column styling */
+  .cv-content-col {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+  }
+  .cv-entry-title {
+    font-size: 1.05rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 0.2rem !important;
+    line-height: 1.3 !important;
+  }
+  .cv-entry-title a {
+    color: inherit !important;
+  }
+  .cv-entry-title a:hover {
+    color: var(--global-theme-color) !important;
+    text-decoration: underline !important;
+  }
+  .cv-entry-subtitle {
+    font-size: 0.95rem !important;
+    font-weight: 500 !important;
+    margin-bottom: 0.2rem !important;
+    color: var(--global-text-color) !important;
+    line-height: 1.3 !important;
+  }
+  .cv-entry-detail {
+    font-size: 0.9rem !important;
+    font-weight: 300 !important;
+    font-style: italic !important;
+    margin-bottom: 0.35rem !important;
+    color: var(--global-text-color-light) !important;
+    line-height: 1.35 !important;
+  }
+  .cv-entry-items {
+    margin: 0.35rem 0 0 1.25rem !important;
+    padding: 0 !important;
+    list-style-type: disc !important;
+    font-size: 0.88rem !important;
+    line-height: 1.45 !important;
+  }
+  .cv-entry-items li {
+    list-style-type: disc !important;
+    margin-bottom: 0.25rem !important;
+  }
+  .cv-entry-items li::marker {
+    display: list-item !important;
+  }
+
+  /* Skills & Interests styling */
+  .skill-item,
+  .interest-item {
+    padding: 0.45rem 0 !important;
+    line-height: 1.45 !important;
+  }
+
+  /* Responsive adjustment for small screens */
+  @media (max-width: 576px) {
+    .cv-entry-row {
+      flex-direction: column !important;
+    }
+    .cv-date-col {
+      width: 100% !important;
+      max-width: 100% !important;
+      margin-right: 0 !important;
+      margin-bottom: 0.5rem !important;
+      align-items: flex-start !important;
+      text-align: left !important;
+    }
+    .cv-badge {
+      max-width: none !important;
+      width: auto !important;
+    }
+  }
+</style>
