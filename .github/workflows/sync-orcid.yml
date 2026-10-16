@@ -28,6 +28,7 @@ jobs:
       - name: Run Publication sync script (ADS / SciX, ORCID, arXiv)
         env:
           ADS_DEV_KEY: ${{ secrets.ADS_DEV_KEY }}
+          SCIX_API_TOKEN: ${{ secrets.SCIX_API_TOKEN }}
           ORCID_ID: "0000-0002-4843-345X"
         run: |
           python bin/sync_publications.py

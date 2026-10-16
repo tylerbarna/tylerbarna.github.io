@@ -26,7 +26,7 @@ import ssl
 import xml.etree.ElementTree as ET
 
 ORCID_ID = os.environ.get("ORCID_ID", "0000-0002-4843-345X")
-ADS_DEV_KEY = os.environ.get("ADS_DEV_KEY", "")
+ADS_DEV_KEY = os.environ.get("SCIX_API_TOKEN") or os.environ.get("ADS_DEV_KEY", "")
 OUTPUT_BIB = os.environ.get("OUTPUT_BIB", "_bibliography/papers.bib")
 
 VENUE_MAP = {
