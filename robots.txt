@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow:
 
-Sitemap: https://tylerbarna.github.io/sitemap.xml
+Sitemap: https://tylerbarna.com/sitemap.xml
