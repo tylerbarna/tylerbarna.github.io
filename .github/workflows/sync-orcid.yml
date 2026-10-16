@@ -46,8 +46,8 @@ jobs:
 
       - name: Commit and push if changed
         run: |
-          git add _bibliography/papers.bib _data/repositories.yml
+          git add _bibliography/papers.bib _data/repositories.yml _data/metrics.yml
           git diff --staged --quiet || (
-            git commit -m "chore: sync publications and github repository stats"
+            git commit -m "chore: sync publications, bibliometrics, and github stats"
             git push
           )

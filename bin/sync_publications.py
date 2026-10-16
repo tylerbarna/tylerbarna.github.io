@@ -25,6 +25,7 @@ import urllib.parse
 import urllib.error
 import ssl
 import xml.etree.ElementTree as ET
+import yaml
 
 ORCID_ID = os.environ.get("ORCID_ID", "0000-0002-4843-345X")
 ADS_DEV_KEY = os.environ.get("SCIX_API_TOKEN") or os.environ.get("ADS_DEV_KEY", "")
@@ -240,6 +241,82 @@ def enrich_bibtex_entry(raw_bib, doi=None, arxiv=None):
         return raw_bib[:last_brace_idx] + injected_block
     return raw_bib
 
+def sync_scix_metrics(ads_token, orcid, metrics_path="_data/metrics.yml"):
+    """Query SciX Metrics API and update _data/metrics.yml with citations, h-index, and yearly histograms."""
+    if not ads_token:
+        return
+    try:
+        q = f'orcid:{orcid} OR (author:"Barna, Tyler" AND year:2018-2030)'
+        search_url = f'https://scixplorer.org/v1/search/query?q={urllib.parse.quote(q)}&fl=bibcode,property&rows=100'
+        ctx = create_ssl_context()
+        req = urllib.request.Request(search_url, headers={'Authorization': f'Bearer {ads_token}', 'User-Agent': 'Mozilla/5.0'})
+        with urllib.request.urlopen(req, timeout=15, context=ctx) as resp:
+            data = json.loads(resp.read().decode('utf-8'))
+            docs = data.get('response', {}).get('docs', [])
+            bibcodes = [d['bibcode'] for d in docs if 'bibcode' in d]
+        
+        if not bibcodes:
+            return
+
+        metrics_url = 'https://scixplorer.org/v1/metrics'
+        post_data = json.dumps({'bibcodes': bibcodes}).encode('utf-8')
+        m_req = urllib.request.Request(
+            metrics_url,
+            data=post_data,
+            headers={'Authorization': f'Bearer {ads_token}', 'Content-Type': 'application/json', 'User-Agent': 'Mozilla/5.0'}
+        )
+        with urllib.request.urlopen(m_req, timeout=20, context=ctx) as m_resp:
+            res = json.loads(m_resp.read().decode('utf-8'))
+
+        c_ref = res.get('histograms', {}).get('citations', {}).get('refereed to refereed', {})
+        c_non = res.get('histograms', {}).get('citations', {}).get('nonrefereed to refereed', {})
+        all_cite_years = sorted(set(list(c_ref.keys()) + list(c_non.keys())))
+        citations_by_year = {}
+        for y in all_cite_years:
+            try:
+                yi = int(y)
+                if 2018 <= yi <= 2030:
+                    tot = c_ref.get(y, 0) + c_non.get(y, 0)
+                    citations_by_year[yi] = tot
+            except ValueError:
+                continue
+
+        p_all = res.get('histograms', {}).get('publications', {}).get('all publications', {})
+        p_ref = res.get('histograms', {}).get('publications', {}).get('refereed publications', {})
+        publications_by_year = {}
+        for y in sorted(p_all.keys()):
+            try:
+                yi = int(y)
+                if 2018 <= yi <= 2030 and p_all[y] > 0:
+                    ref_count = p_ref.get(y, 0)
+                    non_ref = p_all[y] - ref_count
+                    publications_by_year[yi] = {
+                        'refereed': ref_count,
+                        'non_refereed': non_ref,
+                        'total': p_all[y]
+                    }
+            except ValueError:
+                continue
+
+        metrics_data = {
+            'total_citations': res.get('citation stats', {}).get('total number of citations', 0),
+            'refereed_citations': res.get('citation stats', {}).get('total number of refereed citations', 0),
+            'citing_papers': res.get('citation stats', {}).get('number of citing papers', 0),
+            'h_index': res.get('indicators', {}).get('h', 0),
+            'g_index': res.get('indicators', {}).get('g', 0),
+            'i10_index': res.get('indicators', {}).get('i10', 0),
+            'total_reads': res.get('basic stats', {}).get('total number of reads', 0),
+            'total_downloads': res.get('basic stats', {}).get('total number of downloads', 0),
+            'citations_by_year': citations_by_year,
+            'publications_by_year': publications_by_year
+        }
+
+        with open(metrics_path, 'w', encoding='utf-8') as f:
+            yaml.dump(metrics_data, f, sort_keys=False)
+        print(f"Successfully updated bibliometrics in {metrics_path}!")
+    except Exception as e:
+        print(f"Notice: SciX metrics query returned {e}", file=sys.stderr)
+
 def main():
     print("=== Tyler Barna Publication Synchronizer (NASA ADS/SciX + ORCID + arXiv) ===")
     print(f"Output target: {OUTPUT_BIB}")
@@ -317,6 +394,11 @@ def main():
         print("Success! Publications updated.")
     else:
         print("All publications are already up to date!")
+
+    # 4. Sync bibliometrics and citation charts
+    if ADS_DEV_KEY:
+        print("Querying NASA ADS / SciX Metrics API for bibliometrics & citation history...")
+        sync_scix_metrics(ADS_DEV_KEY, ORCID_ID)
 
 if __name__ == "__main__":
     main()
