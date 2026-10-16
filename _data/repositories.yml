@@ -2,7 +2,7 @@ profile:
   username: tylerbarna
   url: https://github.com/tylerbarna
   contributions: "380+"
-  summary: "Active contributor to open-source astrophysics pipelines, real-time alert brokers, and multi-messenger parameter estimation libraries."
+  summary: "Core developer on NASA GCN and core contributor to open-source astrophysics pipelines, real-time alert brokers, and multi-messenger parameter estimation libraries."
 
 projects:
   - name: "NASA GCN (General Coordinates Network)"
@@ -10,7 +10,7 @@ projects:
     url: "https://github.com/nasa-gcn/gcn.nasa.gov"
     website: "https://gcn.nasa.gov"
     description: "NASA's modern alert distribution and circulars system for time-domain and multi-messenger astronomy. Coordinates real-time follow-up of GRBs, gravitational waves, and high-energy transients across global observatories."
-    role: "Contributor (Search & Alert Processing)"
+    role: "Core Developer"
     language: "TypeScript"
     language_color: "#3178c6"
     tags: ["Time-Domain", "Alert System", "NASA", "Next.js"]

@@ -23,7 +23,7 @@ nav_order: 3
           <i class="fa-solid fa-code-commit me-1"></i> {{ site.data.repositories.profile.contributions }} Annual Contributions
         </span>
         <span class="badge" style="background-color: rgba(41, 128, 185, 0.12); color: #2980b9; border: 1px solid rgba(41, 128, 185, 0.35); font-weight: 600;">
-          <i class="fa-solid fa-satellite-dish me-1"></i> Real-Time Alert Pipelines
+          <i class="fa-solid fa-satellite-dish me-1"></i> NASA GCN Core Developer
         </span>
         <span class="badge" style="background-color: rgba(142, 68, 173, 0.12); color: #8e44ad; border: 1px solid rgba(142, 68, 173, 0.35); font-weight: 600;">
           <i class="fa-solid fa-bolt me-1"></i> Multi-Messenger Astrophysics
