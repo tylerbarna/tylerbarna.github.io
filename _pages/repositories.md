@@ -18,22 +18,19 @@ nav_order: 3
       <p class="mb-2 text-muted" style="font-size: 0.92rem;">
         {{ site.data.repositories.profile.summary }}
       </p>
-      <div class="d-flex flex-wrap align-items-center gap-2 pt-1">
-        <span class="badge" style="background-color: rgba(234, 179, 8, 0.12); color: #b45309; border: 1px solid rgba(234, 179, 8, 0.35); font-weight: 600;">
+      <div class="d-flex flex-wrap align-items-center pt-2" style="gap: 0.6rem; row-gap: 0.65rem;">
+        <span class="badge" style="background-color: rgba(234, 179, 8, 0.12); color: #b45309; border: 1px solid rgba(234, 179, 8, 0.35); font-weight: 600; font-size: 0.8rem; padding: 0.38rem 0.65rem;">
           <i class="fa-solid fa-star me-1" style="color: #eab308;"></i> {{ site.data.repositories.profile.combined_stars }} Combined Stars (NASA GCN, NMMA & SkyPortal)
         </span>
-        <span class="badge" style="background-color: rgba(142, 68, 173, 0.12); color: #8e44ad; border: 1px solid rgba(142, 68, 173, 0.35); font-weight: 600;">
+        <span class="badge" style="background-color: rgba(142, 68, 173, 0.12); color: #8e44ad; border: 1px solid rgba(142, 68, 173, 0.35); font-weight: 600; font-size: 0.8rem; padding: 0.38rem 0.65rem;">
           <i class="fa-solid fa-code-pull-request me-1"></i> {{ site.data.repositories.profile.merged_prs }} Merged PRs
         </span>
-        <span class="badge" style="background-color: rgba(39, 174, 96, 0.12); color: #27ae60; border: 1px solid rgba(39, 174, 96, 0.35); font-weight: 600;">
+        <span class="badge" style="background-color: rgba(39, 174, 96, 0.12); color: #27ae60; border: 1px solid rgba(39, 174, 96, 0.35); font-weight: 600; font-size: 0.8rem; padding: 0.38rem 0.65rem;">
           <i class="fa-solid fa-code-commit me-1"></i> {{ site.data.repositories.profile.contributions }} Annual Contributions
         </span>
         <a href="https://pypi.org/project/nmma/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; text-decoration: none;" title="nmma on PyPI">
-          <img src="https://img.shields.io/pypi/dm/nmma?style=flat&color=3498db&label=nmma%20PyPI" alt="nmma PyPI downloads" style="height: 22px; border-radius: 4px;" loading="lazy">
+          <img src="https://img.shields.io/pypi/dm/nmma?style=flat&color=3498db&label=nmma%20PyPI" alt="nmma PyPI downloads" style="height: 24px; border-radius: 4px;" loading="lazy">
         </a>
-        <span class="badge" style="background-color: rgba(41, 128, 185, 0.12); color: #2980b9; border: 1px solid rgba(41, 128, 185, 0.35); font-weight: 600;">
-          <i class="fa-solid fa-satellite-dish me-1"></i> NASA GCN Core Developer
-        </span>
       </div>
     </div>
     <div class="flex-shrink-0">
