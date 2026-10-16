@@ -21,6 +21,7 @@ import sys
 import re
 import json
 import urllib.request
+import urllib.parse
 import urllib.error
 import ssl
 import xml.etree.ElementTree as ET
@@ -119,43 +120,49 @@ def fetch_arxiv_entries(author="Barna_Tyler"):
 
 def fetch_ads_bibtex(ads_token, orcid):
     """Query NASA ADS / SciX API for clean, curated astronomy BibTeX."""
-    url = "https://api.adsabs.harvard.edu/v1/search/query"
+    base_urls = [
+        ("https://scixplorer.org/v1/search/query", "https://scixplorer.org/v1/export/bibtex"),
+        ("https://api.adsabs.harvard.edu/v1/search/query", "https://api.adsabs.harvard.edu/v1/export/bibtex"),
+    ]
     query_params = {
-        "q": f'orcid:{orcid} OR author:"Barna, Tyler"',
+        "q": f'orcid:{orcid} OR (author:"Barna, Tyler" AND year:2018-2030)',
         "fl": "bibcode,title,year,author,doi,identifier",
         "rows": 50
     }
     encoded = urllib.parse.urlencode(query_params)
-    req = urllib.request.Request(
-        f"{url}?{encoded}",
-        headers={"Authorization": f"Bearer {ads_token}"}
-    )
-    try:
-        ctx = create_ssl_context()
-        with urllib.request.urlopen(req, timeout=15, context=ctx) as resp:
-            data = json.loads(resp.read().decode("utf-8"))
-            docs = data.get("response", {}).get("docs", [])
-            bibcodes = [d["bibcode"] for d in docs if "bibcode" in d]
-            if not bibcodes:
-                return []
+    ctx = create_ssl_context()
 
-            # Export BibTeX for these bibcodes
-            export_url = "https://api.adsabs.harvard.edu/v1/export/bibtex"
-            post_data = json.dumps({"bibcode": bibcodes}).encode("utf-8")
-            export_req = urllib.request.Request(
-                export_url,
-                data=post_data,
-                headers={
-                    "Authorization": f"Bearer {ads_token}",
-                    "Content-Type": "application/json"
-                }
+    for search_url, export_url in base_urls:
+        try:
+            req = urllib.request.Request(
+                f"{search_url}?{encoded}",
+                headers={"Authorization": f"Bearer {ads_token}", "User-Agent": "Mozilla/5.0"}
             )
-            with urllib.request.urlopen(export_req, timeout=20, context=ctx) as exp_resp:
-                exp_data = json.loads(exp_resp.read().decode("utf-8"))
-                return exp_data.get("export", "").split("\n\n")
-    except Exception as e:
-        print(f"Notice: NASA ADS / SciX API query returned {e}", file=sys.stderr)
-        return []
+            with urllib.request.urlopen(req, timeout=15, context=ctx) as resp:
+                data = json.loads(resp.read().decode("utf-8"))
+                docs = data.get("response", {}).get("docs", [])
+                bibcodes = [d["bibcode"] for d in docs if "bibcode" in d]
+                if not bibcodes:
+                    return []
+
+                # Export BibTeX for these bibcodes
+                post_data = json.dumps({"bibcode": bibcodes}).encode("utf-8")
+                export_req = urllib.request.Request(
+                    export_url,
+                    data=post_data,
+                    headers={
+                        "Authorization": f"Bearer {ads_token}",
+                        "Content-Type": "application/json",
+                        "User-Agent": "Mozilla/5.0"
+                    }
+                )
+                with urllib.request.urlopen(export_req, timeout=20, context=ctx) as exp_resp:
+                    exp_data = json.loads(exp_resp.read().decode("utf-8"))
+                    return exp_data.get("export", "").split("\n\n")
+        except Exception as e:
+            print(f"Notice: Query to {search_url} returned {e}", file=sys.stderr)
+            continue
+    return []
 
 def fetch_bibtex_by_doi(doi):
     """Fetch standard BibTeX using CrossRef Content Negotiation."""
@@ -185,6 +192,19 @@ def enrich_bibtex_entry(raw_bib, doi=None, arxiv=None):
     """Inject al-folio properties into raw BibTeX string."""
     if not raw_bib or not raw_bib.strip().startswith("@"):
         return raw_bib
+
+    # Clean up standard NASA ADS / SciX journal macros
+    journal_macros = {
+        r"\\mnras\b": "{Monthly Notices of the Royal Astronomical Society}",
+        r"\\pasp\b": "{Publications of the Astronomical Society of the Pacific}",
+        r"\\apj\b": "{The Astrophysical Journal}",
+        r"\\apjl\b": "{The Astrophysical Journal Letters}",
+        r"\\apjs\b": "{The Astrophysical Journal Supplement Series}",
+        r"\\nat\b": "{Nature}",
+        r"\\aap\b": "{Astronomy and Astrophysics}"
+    }
+    for m, rep in journal_macros.items():
+        raw_bib = re.sub(m, rep, raw_bib)
 
     # Determine venue abbreviation
     abbr = "arXiv"
