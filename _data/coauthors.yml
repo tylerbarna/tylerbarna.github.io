@@ -1,34 +1,39 @@
-"Adams":
-  - firstname: ["Edwin", "E.", "E. P.", "Edwin Plimpton"]
-    url: https://en.wikipedia.org/wiki/Edwin_Plimpton_Adams
+"Coughlin":
+  - firstname: ["Michael W.", "Michael", "M. W."]
+    url: https://cse.umn.edu/physics/michael-coughlin
 
-"Podolsky":
-  - firstname: ["Boris", "B.", "B. Y.", "Boris Yakovlevich"]
-    url: https://en.wikipedia.org/wiki/Boris_Podolsky
+"Dietrich":
+  - firstname: ["Tim", "T."]
+    url: https://www.uni-potsdam.de/en/astroparticle/people/tim-dietrich
 
-"Rosen":
-  - firstname: ["Nathan", "N."]
-    url: https://en.wikipedia.org/wiki/Nathan_Rosen
+"Fremling":
+  - firstname: ["Christoffer", "C."]
+    url: https://pma.caltech.edu/people/christoffer-fremling
 
-"Bach": 
-  - firstname: ["Johann Sebastian", "J. S."]
-    url: https://en.wikipedia.org/wiki/Johann_Sebastian_Bach
+"Ahumada":
+  - firstname: ["Tomás", "Tomas", "T."]
+    url: https://astro.umd.edu/people/tomas-ahumada
 
-  - firstname: ["Carl Philipp Emanuel", "C. P. E."]
-    url: https://en.wikipedia.org/wiki/Carl_Philipp_Emanuel_Bach
+"Kasliwal":
+  - firstname: ["Mansi M.", "Mansi", "M. M."]
+    url: https://www.astro.caltech.edu/people/mansi-kasliwal
 
-"Przibram":
-  - firstname: ["Karl"]
-    url: https://link.springer.com/article/10.1007/s00016-019-00242-z
+"Andreoni":
+  - firstname: ["Igor", "I."]
+    url: https://www.igorthesky.org/
 
-"Schrödinger":
-  - firstname: ["Erwin"]
-    url: https://en.wikipedia.org/wiki/Erwin_Schr%C3%B6dinger
+"Pang":
+  - firstname: ["Peter T. H.", "Peter T.~H.", "Peter", "P. T. H."]
+    url: https://www.uu.nl/staff/PTHPang
 
-"Lorentz":
-  - firstname: ["Hendrik Antoon"]
-    url: https://en.wikipedia.org/wiki/Hendrik_Lorentz
+"Bulla":
+  - firstname: ["Mattia", "M."]
+    url: https://www.mattiabulla.com/
 
-"Planck":
-  - firstname: ["Max"]
-    url: https://en.wikipedia.org/wiki/Max_Planck
+"Reed":
+  - firstname: ["Brandon", "B."]
+    url: https://cse.umn.edu/physics/brandon-reed
+
+"Soares-Furtado":
+  - firstname: ["Melinda", "M."]
+    url: https://www.astro.wisc.edu/our-people/postdoctoral-researchers/melinda-soares-furtado/
