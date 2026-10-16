@@ -32,9 +32,10 @@ ensure_bundle_deps() {
 
 start_jekyll() {
     manage_gemfile_lock
+    rm -rf /srv/jekyll/.jekyll-cache /srv/jekyll/.bundle /srv/jekyll/vendor 2>/dev/null || true
     ensure_bundle_deps
     mkdir -p "$DOCKER_DESTINATION"
-    bundle exec jekyll serve --watch --port=8080 --host=0.0.0.0 --livereload --verbose --trace --force_polling --destination "$DOCKER_DESTINATION" --config "$CONFIG_FILE" &
+    bundle exec jekyll serve --watch --port=8080 --host=0.0.0.0 --livereload --verbose --trace --force_polling --destination "$DOCKER_DESTINATION" --config "$CONFIG_FILE" --disable-disk-cache &
 }
 
 start_jekyll
