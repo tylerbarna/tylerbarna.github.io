@@ -1,0 +1,336 @@
+---
+# Only the main Sass file needs front matter (the dashes are enough)
+---
+
+@charset "utf-8";
+
+/* Built-in Sass modules */
+@use "sass:math";
+@use "sass:string";
+
+/* Configure design tokens */
+@use "variables" with (
+  $max-content-width: {{ site.max_width | default: "930px" }}
+);
+
+/* Gem partials */
+@use "themes";
+@use "layout";
+
+@use "typography";
+@use "navbar";
+@use "footer";
+@use "blog";
+@use "publications";
+@use "components";
+@use "utilities";
+
+@use "tabs";
+@use "teachings";
+@use "typograms";
+
+/* ==========================================================================
+   Adequate Spacing & Colorful Styling for Tags, Badges & Plugins
+   ========================================================================== */
+
+/* 1. Publication List Items & Typography Spacing */
+.publications ol.bibliography li {
+  margin-bottom: 2.25rem !important;
+  padding-bottom: 1.5rem !important;
+  border-bottom: 1px solid var(--global-divider-color) !important;
+}
+
+.publications ol.bibliography li:last-child {
+  border-bottom: none !important;
+}
+
+.publications ol.bibliography li .title {
+  font-size: 1.05rem !important;
+  font-weight: 600 !important;
+  line-height: 1.45 !important;
+  margin-bottom: 0.4rem !important;
+}
+
+.publications ol.bibliography li .author {
+  font-size: 0.92rem !important;
+  line-height: 1.45 !important;
+  margin-bottom: 0.35rem !important;
+}
+
+.publications ol.bibliography li .periodical {
+  font-size: 0.88rem !important;
+  color: var(--global-text-color-light) !important;
+  margin-bottom: 0.6rem !important;
+}
+
+/* 2. Venue Badges Spacing & Styling */
+.publications ol.bibliography li .abbr {
+  display: flex !important;
+  justify-content: flex-start !important;
+  align-items: flex-start !important;
+  padding-top: 0.2rem !important;
+  margin-bottom: 0.75rem !important;
+}
+
+.publications ol.bibliography li .abbr abbr,
+.publications ol.bibliography li .abbr .badge {
+  display: inline-block !important;
+  padding: 0.35rem 0.75rem !important;
+  border-radius: 6px !important;
+  font-weight: 700 !important;
+  font-size: 0.78rem !important;
+  letter-spacing: 0.5px !important;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15) !important;
+  text-transform: uppercase !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+.publications ol.bibliography li .abbr abbr:hover,
+.publications ol.bibliography li .abbr .badge:hover {
+  transform: translateY(-1px) scale(1.03) !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2) !important;
+}
+
+.publications ol.bibliography li .abbr abbr a {
+  color: #ffffff !important;
+  text-decoration: none !important;
+}
+
+/* 3. Action Buttons (.links) Spacing & Styling */
+.publications ol.bibliography li .links {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 0.55rem !important;
+  align-items: center !important;
+  margin-top: 0.65rem !important;
+  margin-bottom: 0.75rem !important;
+}
+
+.publications ol.bibliography li .links a.btn {
+  padding: 0.26rem 0.65rem !important;
+  font-size: 0.74rem !important;
+  font-weight: 600 !important;
+  border-radius: 6px !important;
+  margin: 0 !important;
+  text-transform: none !important;
+  transition: all 0.18s ease-in-out !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  line-height: 1.4 !important;
+}
+
+.publications ol.bibliography li .links a.btn:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.14) !important;
+  text-decoration: none !important;
+}
+
+/* BibTeX Button (Royal Purple) */
+.publications ol.bibliography li .links a.bibtex {
+  background-color: rgba(108, 92, 231, 0.12) !important;
+  color: #6c5ce7 !important;
+  border: 1px solid rgba(108, 92, 231, 0.38) !important;
+}
+.publications ol.bibliography li .links a.bibtex:hover {
+  background-color: #6c5ce7 !important;
+  color: #ffffff !important;
+}
+
+/* arXiv Button (Crimson Red) */
+.publications ol.bibliography li .links a.arxiv,
+.publications ol.bibliography li .links a[href*="arxiv.org"] {
+  background-color: rgba(179, 27, 27, 0.12) !important;
+  color: #b31b1b !important;
+  border: 1px solid rgba(179, 27, 27, 0.4) !important;
+}
+.publications ol.bibliography li .links a.arxiv:hover,
+.publications ol.bibliography li .links a[href*="arxiv.org"]:hover {
+  background-color: #b31b1b !important;
+  color: #ffffff !important;
+}
+
+/* DOI Button (Emerald Teal) */
+.publications ol.bibliography li .links a[href*="doi.org"] {
+  background-color: rgba(18, 148, 144, 0.12) !important;
+  color: #117864 !important;
+  border: 1px solid rgba(18, 148, 144, 0.38) !important;
+}
+.publications ol.bibliography li .links a[href*="doi.org"]:hover {
+  background-color: #117864 !important;
+  color: #ffffff !important;
+}
+
+/* Journal / HTML Button (Ocean Blue) */
+.publications ol.bibliography li .links a.html,
+.publications ol.bibliography li .links a[href*="academic.oup.com"],
+.publications ol.bibliography li .links a[href*="iopscience"],
+.publications ol.bibliography li .links a[href*="nature.com"] {
+  background-color: rgba(41, 128, 185, 0.12) !important;
+  color: #2980b9 !important;
+  border: 1px solid rgba(41, 128, 185, 0.38) !important;
+}
+.publications ol.bibliography li .links a.html:hover,
+.publications ol.bibliography li .links a[href*="academic.oup.com"]:hover,
+.publications ol.bibliography li .links a[href*="iopscience"]:hover,
+.publications ol.bibliography li .links a[href*="nature.com"]:hover {
+  background-color: #2980b9 !important;
+  color: #ffffff !important;
+}
+
+/* Code Repository Button (GitHub Green) */
+.publications ol.bibliography li .links a.code,
+.publications ol.bibliography li .links a[href*="github.com"] {
+  background-color: rgba(39, 174, 96, 0.12) !important;
+  color: #27ae60 !important;
+  border: 1px solid rgba(39, 174, 96, 0.38) !important;
+}
+.publications ol.bibliography li .links a.code:hover,
+.publications ol.bibliography li .links a[href*="github.com"]:hover {
+  background-color: #27ae60 !important;
+  color: #ffffff !important;
+}
+
+/* Abstract Button (Warm Amber) */
+.publications ol.bibliography li .links a.abstract {
+  background-color: rgba(230, 126, 34, 0.12) !important;
+  color: #d35400 !important;
+  border: 1px solid rgba(230, 126, 34, 0.38) !important;
+}
+.publications ol.bibliography li .links a.abstract:hover {
+  background-color: #d35400 !important;
+  color: #ffffff !important;
+}
+
+/* 4. Third-Party Plugin Badges (.badges) - ADEQUATE SPACING FIX */
+.publications ol.bibliography li .badges {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 0.85rem !important;
+  align-items: center !important;
+  margin-top: 0.75rem !important; /* Generous breathing room below action buttons */
+  margin-bottom: 0.6rem !important;
+  padding: 0.25rem 0 !important;
+  min-height: 28px !important;
+}
+
+.publications ol.bibliography li .badges span.altmetric-embed,
+.publications ol.bibliography li .badges span.__dimensions_badge_embed__ {
+  display: inline-flex !important;
+  align-items: center !important;
+  margin: 0 0.5rem 0 0 !important;
+  vertical-align: middle !important;
+}
+
+/* 5. BibSearch Live Filter Bar Spacing */
+#bibsearch {
+  border-radius: 8px !important;
+  border: 1.5px solid var(--global-divider-color) !important;
+  padding: 0.5rem 1rem !important;
+  font-size: 0.9rem !important;
+  margin-top: 0.5rem !important;
+  margin-bottom: 1.75rem !important;
+  transition: all 0.2s ease !important;
+  background-color: var(--global-card-bg-color) !important;
+  color: var(--global-text-color) !important;
+  width: 100% !important;
+  max-width: 480px !important;
+}
+
+#bibsearch:focus {
+  border-color: var(--global-theme-color) !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.18) !important;
+  outline: none !important;
+}
+
+/* 6. Blog Tags & Category Pills Spacing & Styling */
+.tag-category-list {
+  margin-top: 0.75rem !important;
+  margin-bottom: 1.75rem !important;
+}
+
+.tag-category-list ul {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 0.65rem !important;
+  list-style: none !important;
+  padding: 0 !important;
+  align-items: center !important;
+}
+
+.tag-category-list p {
+  display: none !important;
+}
+
+.tag-category-list li a,
+.post-tags a {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  padding: 0.35rem 0.85rem !important;
+  border-radius: 9999px !important;
+  font-size: 0.82rem !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  transition: all 0.2s ease !important;
+  background-color: rgba(59, 130, 246, 0.12);
+  color: #2563eb;
+  border: 1px solid rgba(59, 130, 246, 0.28);
+}
+
+.tag-category-list li a:hover,
+.post-tags a:hover {
+  transform: translateY(-1.5px) !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12) !important;
+  filter: brightness(1.08) !important;
+}
+
+/* Palette mapping for tags */
+.tag-category-list li a[href*="/formatting"],
+.post-tags a[href*="/formatting"] {
+  background-color: rgba(142, 68, 173, 0.12) !important;
+  color: #8e44ad !important;
+  border-color: rgba(142, 68, 173, 0.32) !important;
+}
+
+.tag-category-list li a[href*="/images"],
+.post-tags a[href*="/images"] {
+  background-color: rgba(39, 174, 96, 0.12) !important;
+  color: #27ae60 !important;
+  border-color: rgba(39, 174, 96, 0.32) !important;
+}
+
+.tag-category-list li a[href*="/links"],
+.post-tags a[href*="/links"] {
+  background-color: rgba(41, 128, 185, 0.12) !important;
+  color: #2980b9 !important;
+  border-color: rgba(41, 128, 185, 0.32) !important;
+}
+
+.tag-category-list li a[href*="/math"],
+.post-tags a[href*="/math"] {
+  background-color: rgba(231, 76, 60, 0.12) !important;
+  color: #c0392b !important;
+  border-color: rgba(231, 76, 60, 0.32) !important;
+}
+
+.tag-category-list li a[href*="/code"],
+.post-tags a[href*="/code"] {
+  background-color: rgba(243, 156, 18, 0.12) !important;
+  color: #d35400 !important;
+  border-color: rgba(243, 156, 18, 0.32) !important;
+}
+
+.tag-category-list li a[href*="/blockquotes"],
+.post-tags a[href*="/blockquotes"] {
+  background-color: rgba(0, 184, 148, 0.12) !important;
+  color: #00b894 !important;
+  border-color: rgba(0, 184, 148, 0.32) !important;
+}
+
+/* 7. Repositories & Software Cards Hover */
+.row-cols-md-2 .card:hover {
+  transform: translateY(-2.5px) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+  border-color: color-mix(in srgb, var(--global-theme-color) 40%, var(--global-divider-color)) !important;
+}
+

@@ -1,3 +1,39 @@
+"MNRAS":
+  url: https://academic.oup.com/mnras
+  color: "#1a5276"
+
+"PASP":
+  url: https://iopscience.iop.org/journal/1538-3873
+  color: "#117864"
+
+"ApJL":
+  url: https://iopscience.iop.org/journal/2041-8205
+  color: "#922b21"
+
+"ApJ":
+  url: https://iopscience.iop.org/journal/0004-637X
+  color: "#a93226"
+
+"ApJS":
+  url: https://iopscience.iop.org/journal/0067-0049
+  color: "#76448a"
+
+"Nat. Commun.":
+  url: https://www.nature.com/ncomms/
+  color: "#b9770e"
+
+"arXiv":
+  url: https://arxiv.org/
+  color: "#b31b1b"
+
+"ATel":
+  url: https://www.astronomerstelegram.org/
+  color: "#2c3e50"
+
+"VizieR":
+  url: https://vizier.cds.unistra.fr/
+  color: "#196f3d"
+
 "AJP":
   url: https://aapt.scitation.org/journal/ajp
   color: "#00369f"
