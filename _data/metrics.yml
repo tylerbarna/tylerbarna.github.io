@@ -1,11 +1,11 @@
-total_citations: 324
-refereed_citations: 266
-citing_papers: 287
+total_citations: 325
+refereed_citations: 267
+citing_papers: 288
 h_index: 9
 g_index: 15
 i10_index: 7
-total_reads: 4991
-total_downloads: 2059
+total_reads: 4997
+total_downloads: 2063
 citations_by_year:
   2020: 1
   2021: 2
@@ -13,7 +13,8 @@ citations_by_year:
   2023: 26
   2024: 41
   2025: 88
-  2026: 107
+  2026: 108
+  2027: 1
 publications_by_year:
   2020:
     refereed: 1
