@@ -2,7 +2,7 @@ profile:
   username: tylerbarna
   url: https://github.com/tylerbarna
   contributions: 380+
-  merged_prs: 200+
+  merged_prs: 210+
   combined_stars: 420+
   summary: Core developer on NASA GCN and core contributor to open-source astrophysics
     pipelines, real-time alert brokers, and multi-messenger parameter estimation libraries
@@ -26,7 +26,7 @@ projects:
   role: Core Developer
   language: TypeScript
   language_color: '#3178c6'
-  stars: 225
+  stars: 226
   forks: 61
   tags:
   - Time-Domain
@@ -43,8 +43,8 @@ projects:
   language: Python
   language_color: '#3572A5'
   paper_url: https://academic.oup.com/mnras/article/531/1/1084/7671758
-  stars: 47
-  forks: 75
+  stars: 48
+  forks: 76
   pypi: nmma
   tags:
   - Bayesian Inference
