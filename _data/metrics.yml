@@ -1,19 +1,19 @@
-total_citations: 360
-refereed_citations: 274
-citing_papers: 316
+total_citations: 353
+refereed_citations: 280
+citing_papers: 309
 h_index: 9
 g_index: 15
 i10_index: 8
-total_reads: 5021
-total_downloads: 2072
+total_reads: 5028
+total_downloads: 2077
 citations_by_year:
   2020: 1
   2021: 2
   2022: 3
-  2023: 26
-  2024: 41
-  2025: 89
-  2026: 142
+  2023: 25
+  2024: 40
+  2025: 90
+  2026: 137
   2027: 1
 publications_by_year:
   2020:
