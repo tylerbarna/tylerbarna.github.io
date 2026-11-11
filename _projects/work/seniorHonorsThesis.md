@@ -2,7 +2,7 @@
 layout: page
 title: Senior Honors Thesis
 description: Early-Time Observations of a Type Ia Supernova with TESS
-img: assets/img/projects/seniorThesis/titleImage.png
+img: assets/img/projects/seniorThesis/titleImage.jpg
 importance: 2
 category: work
 ---
