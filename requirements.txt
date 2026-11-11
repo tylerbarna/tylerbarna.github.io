@@ -1,5 +1,3 @@
 nbconvert
 pyyaml
 rendercv[full]
-scholarly
-bibtexparser<2

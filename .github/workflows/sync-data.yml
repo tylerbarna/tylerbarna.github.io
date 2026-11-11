@@ -1,0 +1,61 @@
+name: Sync publications and software stats
+
+# Weekly: pull publications and citation metrics from NASA ADS and repository
+# stats from GitHub, commit anything that changed, then redeploy the site.
+
+on:
+  schedule:
+    - cron: "0 4 * * 1" # Mondays 04:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write # commit the synced data
+  actions: write # start the deploy workflow
+
+concurrency:
+  group: sync-data
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - run: pip install pyyaml
+
+      - name: Sync publications from NASA ADS
+        env:
+          # Any one of these repository secrets works.
+          ADS_API_TOKEN: ${{ secrets.ADS_API_TOKEN || secrets.SCIX_API_TOKEN || secrets.ADS_DEV_KEY }}
+        run: python bin/sync_publications.py
+
+      - name: Check the bibliography
+        run: python bin/sync_publications.py --check
+
+      - name: Sync GitHub repository stats
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python bin/sync_github_stats.py
+
+      - name: Commit and redeploy if anything changed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git add _bibliography/papers.bib _data/metrics.yml _data/repositories.yml
+          if git diff --staged --quiet; then
+            echo "Nothing changed."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: sync publications and software stats"
+          git push
+          # A push made with GITHUB_TOKEN does not trigger other workflows,
+          # so start the deploy explicitly; otherwise the new data sits in the
+          # repo until someone else pushes.
+          gh workflow run deploy.yml --ref "$GITHUB_REF_NAME"
