@@ -38,5 +38,22 @@
   url: https://aapt.scitation.org/journal/ajp
   color: "#00369f"
 
-"PhysRev":
-  url: https://journals.aps.org/
+"PRD":
+  url: https://journals.aps.org/prd/
+  color: "#1f4e79"
+
+"AAS":
+  url: https://aas.org/meetings
+  color: "#4a5568"
+
+"HEAD":
+  url: https://head.aas.org/
+  color: "#4a5568"
+
+"TNS":
+  url: https://www.wis-tns.org/
+  color: "#2c3e50"
+
+"ASCL":
+  url: https://ascl.net/
+  color: "#5d6d7e"
