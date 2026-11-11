@@ -1,0 +1,46 @@
+name: Check external links
+
+# Monthly check of every outbound link on the deployed site (the gh-pages
+# branch). Opens an issue listing anything broken instead of failing a build,
+# since external sites go down for reasons outside this repo's control.
+# Internal links are checked on every build by bin/check_links.py.
+
+on:
+  schedule:
+    - cron: "0 6 1 * *" # 1st of the month
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  lychee:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: gh-pages
+
+      - name: Check links
+        id: lychee
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --no-progress
+            --scheme https --scheme http
+            --accept 200,206,403,429
+            --exclude "^https?://(www\.)?linkedin\.com"
+            --exclude "scholar\.google\.com"
+            --exclude "fonts\.(googleapis|gstatic)\.com"
+            --exclude "^https?://tylerbarna\.com"
+            "**/*.html"
+          fail: false
+
+      - name: Open an issue if anything is broken
+        if: steps.lychee.outputs.exit_code != 0
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: Broken links on tylerbarna.com
+          content-filepath: ./lychee/out.md
+          labels: broken-links

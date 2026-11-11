@@ -8,12 +8,14 @@ middle_name:
 last_name: Barna
 contact_note: >
   I can also be reached via email at <a href="mailto:barna314@umn.edu">barna314@umn.edu</a>.
-description: ""
+description: >-
+  Tyler Barna is a PhD candidate in astrophysics at the University of Minnesota
+  working on kilonovae, fast optical transients, and real-time software for
+  multi-messenger follow-up (NMMA, ZTF, NASA GCN).
 footer_text: >
-  Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme.
-  Hosted by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
-  Photos from <a href="https://unsplash.com" target="_blank">Unsplash</a>.
-keywords: astrophysics, astronomy, academics, academia, graduate, physics, computers, multi-messenger, observation, computation, academic-website, portfolio-website, barna, tylerbarna, tyler, tyler barna, minnesota, mma, dsmma, rutgers # add your own keywords or leave empty
+  Built with <a href="https://jekyllrb.com/">Jekyll</a> and <a href="https://github.com/alshedivat/al-folio">al-folio</a>.
+  Publications sync weekly from <a href="https://ui.adsabs.harvard.edu/">NASA ADS</a>.
+keywords: Tyler Barna, astrophysics, kilonovae, fast transients, multi-messenger astronomy, gravitational waves, ZTF, NMMA, NASA GCN, University of Minnesota
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
 icon: snIcon.png # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
 apple_touch_icon: snIcon.png # image name in /assets/img/ (or a rooted path / absolute URL) used for iOS home-screen bookmarks; needs a real 180x180 PNG, since Safari ignores the emoji favicon above. Left empty, iOS falls back to a screenshot of the page.
@@ -111,7 +113,7 @@ max_width: 930px
 # see https://schema.org/docs/faq.html for more information
 serve_og_meta: true # Include Open Graph meta tags in the HTML head
 serve_schema_org: true # Include Schema.org in the HTML head
-og_image: # The site-wide (default for all links) Open Graph preview image
+og_image: https://tylerbarna.com/assets/img/prof_pic.jpg # The site-wide (default for all links) Open Graph preview image
 
 # -----------------------------------------------------------------------------
 # Analytics and search engine verification
@@ -136,7 +138,7 @@ bing_site_verification: # out your bing-site-verification ID (Bing Webmaster)
 # -----------------------------------------------------------------------------
 
 blog_name: Tyler Barna # blog_name will be displayed in your blog page
-blog_description: a simple whitespace theme for academics
+blog_description:
 permalink: /blog/:year/:title/
 lsi: false # produce an index for related posts
 
@@ -165,7 +167,7 @@ giscus:
   lang: en
 
 # Disqus comments (DEPRECATED)
-disqus_shortname: al-folio # put your disqus shortname
+disqus_shortname: # put your disqus shortname
 # https://help.disqus.com/en/articles/1717111-what-s-a-shortname
 
 # External sources.
@@ -193,7 +195,7 @@ collections:
   news:
     defaults:
       layout: post
-    output: true
+    output: false # every item is inline on the home page and /news/; no per-item pages
   projects:
     output: true
   teachings:
@@ -233,7 +235,6 @@ exclude:
   - lighthouse_results/
   - package.json
   - package-lock.json
-  - _pages/about_einstein.md
   - purgecss.config.js
   - README.md
   - readme_preview/
@@ -337,8 +338,8 @@ jekyll-archives:
   books:
     enabled: [year, tags, categories] # enables year, tag and category archives (remove if you need to disable one of them).
 
-display_tags: ["formatting", "images", "links", "math", "code", "blockquotes"] # these tags will be displayed on the front page of your blog
-display_categories: ["external-services"] # these categories will be displayed on the front page of your blog
+display_tags: [] # these tags will be displayed on the front page of your blog
+display_categories: [] # these categories will be displayed on the front page of your blog
 
 # -----------------------------------------------------------------------------
 # Jekyll Scholar
@@ -374,13 +375,16 @@ scholar:
 enable_publication_badges:
   altmetric: true # Altmetric badge (Customization options: https://badge-docs.altmetric.com/index.html)
   dimensions: true # Dimensions badge (Customization options: https://badge.dimensions.ai/)
-  google_scholar: true # Google Scholar badge (https://scholar.google.com/intl/en/scholar/citations.html)
+  google_scholar: false # needs per-paper google_scholar_id fields and a working scraper; neither is set up # Google Scholar badge (https://scholar.google.com/intl/en/scholar/citations.html)
   inspirehep: true # Inspire HEP badge (https://help.inspirehep.net/knowledge-base/citation-metrics/)
 
 # Filter out certain bibtex entry keywords used internally from the bib output
 filtered_bibtex_keywords:
   [
     abbr,
+    pubtype,
+    pubtype_override,
+    source,
     abstract,
     additional_info,
     altmetric,
@@ -683,9 +687,7 @@ third_party_libraries:
 # Get external JSON data
 # -----------------------------------------------------------------------------
 
-jekyll_get_json:
-  - data: resume
-    json: assets/json/resume.json # it can also be an url
+jekyll_get_json: [] # CV data lives in _data/cv.yml (RenderCV format)
 
 jsonresume:
   - basics

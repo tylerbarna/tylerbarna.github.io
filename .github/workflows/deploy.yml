@@ -15,18 +15,8 @@ on:
       - "**.yml"
       - "Gemfile"
       - "Gemfile.lock"
-      - "!.github/workflows/axe.yml"
-      - "!.github/workflows/broken-links.yml"
-      - "!.github/workflows/deploy-docker-tag.yml"
-      - "!.github/workflows/deploy-image.yml"
-      - "!.github/workflows/docker-slim.yml"
-      - "!.github/workflows/lighthouse-badger.yml"
-      - "!.github/workflows/prettier.yml"
-      - "!lighthouse_results/**"
-      - "!docs/CONTRIBUTING.md"
-      - "!docs/CUSTOMIZE.md"
-      - "!docs/FAQ.md"
-      - "!docs/INSTALL.md"
+      - "bin/*.py"
+      - "!docs/**"
       - "!README.md"
   pull_request:
     branches:
@@ -42,23 +32,17 @@ on:
       - "**.yml"
       - "Gemfile"
       - "Gemfile.lock"
-      - "!.github/workflows/axe.yml"
-      - "!.github/workflows/broken-links.yml"
-      - "!.github/workflows/deploy-docker-tag.yml"
-      - "!.github/workflows/deploy-image.yml"
-      - "!.github/workflows/docker-slim.yml"
-      - "!.github/workflows/lighthouse-badger.yml"
-      - "!.github/workflows/prettier.yml"
-      - "!lighthouse_results/**"
-      - "!docs/CONTRIBUTING.md"
-      - "!docs/CUSTOMIZE.md"
-      - "!docs/FAQ.md"
-      - "!docs/INSTALL.md"
+      - "bin/*.py"
+      - "!docs/**"
       - "!README.md"
   workflow_dispatch:
 
 permissions:
   contents: write
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   deploy:
@@ -70,7 +54,7 @@ jobs:
       - name: Setup Ruby 💎
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.3.5"
+          ruby-version: "3.3" # latest 3.3.x; runner images only ship the newest patch
           bundler-cache: true
       - name: Setup Python 🐍
         uses: actions/setup-python@v7
@@ -91,12 +75,38 @@ jobs:
           valueFile: "_config.yml"
           propertyPath: "giscus.repo"
           value: ${{ github.repository }}
-      - name: Install and Build 🔧
+      - name: Check bibliography 📚
         run: |
-          sudo apt-get update && sudo apt-get install -y imagemagick
+          pip3 install pyyaml
+          python bin/sync_publications.py --check
+      - name: Install ImageMagick 🖼️
+        id: magick
+        # Ubuntu's package mirrors are sometimes unreachable from runners; a
+        # mirror outage shouldn't block a deploy, so fall back below instead.
+        continue-on-error: true
+        timeout-minutes: 6
+        run: |
+          if command -v magick || command -v convert; then exit 0; fi
+          for attempt in 1 2 3; do
+            sudo apt-get update -o Acquire::Retries=3 \
+              && sudo apt-get install -y --no-install-recommends imagemagick \
+              && exit 0
+            sleep 15
+          done
+          exit 1
+      - name: Build 🔧
+        run: |
           pip3 install --upgrade nbconvert
           export JEKYLL_ENV=production
-          bundle exec jekyll build
+          if [ "${{ steps.magick.outcome }}" = "success" ]; then
+            bundle exec jekyll build
+          else
+            echo "::warning::ImageMagick unavailable; building without responsive WebP images."
+            echo "imagemagick: { enabled: false }" > _config.ci.yml
+            bundle exec jekyll build --config _config.yml,_config.ci.yml
+          fi
+      - name: Check internal links 🔗
+        run: python bin/check_links.py _site
       - name: Purge unused CSS 🧹
         run: |
           npm install -g purgecss
